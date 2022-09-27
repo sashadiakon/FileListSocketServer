@@ -13,7 +13,7 @@ int main(int argc, char const* argv[])
 	int sock = 0, valread, client_fd;
 	struct sockaddr_in serv_addr;
 	char* hello = "Hello from client";
-	char buffer[1024] = { 0 };
+	char buffer[255] = { 0 };
 	if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
 		printf("\n Socket creation error \n");
 		return -1;
@@ -40,15 +40,29 @@ int main(int argc, char const* argv[])
 	}
     char inp[100];
 	int is_work = 1;
+	std::string a;
     while(is_work){
-		printf("Input filter:");
+		printf("Input filter:  ");
         std::cin >> inp;
+		a = "";
+		a+=inp;
+		if (a=="q"){
+			is_work = 0;
+			continue;
+		}
+		else if (a == "Who"){
+			printf("Author of the program: Oleksandr Diakon, variant number - 6, Files and directories list\n");
+			continue;
+		}
         send(sock, inp, strlen(inp), 0);
-        printf("Message sent\n");
-        valread = read(sock, buffer, 1024);
-        printf("%s\n", buffer);  
+        valread = read(sock, buffer, 255);
+        printf("%s\n", buffer); 
+		for (int i = 0; i < strlen(buffer); i++){
+			buffer[i] = 0;
+		}
     }
     // closing the connected socket
     close(client_fd);
+	printf("You disconected from the server");
 	return 0;
 }

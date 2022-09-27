@@ -34,7 +34,7 @@ string get_files(char patterns[100]){
 
 int main(int argc, char const* argv[])
 {
-	int server_fd, new_socket, valread;
+	int server_fd, valread;
 	struct sockaddr_in address;
 	int opt = 1;
 	int addrlen = sizeof(address);
@@ -65,7 +65,7 @@ int main(int argc, char const* argv[])
 		perror("bind failed");
 		exit(EXIT_FAILURE);
 	}
-	if (listen(server_fd, 3) < 0) {
+	if (listen(server_fd, 5) < 0) {
 		perror("listen");
 		exit(EXIT_FAILURE);
 	}
@@ -74,6 +74,7 @@ int main(int argc, char const* argv[])
 	
 	int is_work = 1;
 	while (1){
+		int new_socket;
 		if ((new_socket
 		= accept(server_fd, (struct sockaddr*)&address,
 				(socklen_t*)&addrlen))
@@ -98,7 +99,7 @@ int main(int argc, char const* argv[])
 			files = get_files(buffer);
 			printf("Receaved msg: %s\n", buffer);
 			send(new_socket, files.c_str(), files.size(), 0);
-			printf(files.c_str()); 
+			printf("Sent file list\n");
     	}
 		// close client socket
 		close(new_socket);
