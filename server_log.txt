@@ -1,0 +1,57 @@
+Sun Oct  2 22:44:23 2022| SERVER<<socket-5: '1.cpp'
+Sun Oct  2 22:44:23 2022| SERVER>>socket-5: 'Files and directories list: 
+	1.cpp
+	'
+Sun Oct  2 22:44:24 2022| SERVER<<socket-5: '*'
+Sun Oct  2 22:44:24 2022| SERVER>>socket-5: 'Files and directories list: 
+	1
+	1.cpp
+	2.txt
+	a.out
+	client
+	client.cpp
+	filesystem
+	server
+	server.cpp
+	server_log.txt
+	'
+Sun Oct  2 22:44:26 2022| SERVER<<socket-5: '1'
+Sun Oct  2 22:44:26 2022| SERVER>>socket-5: 'Files and directories list: 
+	1
+	'
+Sun Oct  2 22:44:35 2022| SERVER<<socket-5: 'server'
+Sun Oct  2 22:44:35 2022| SERVER>>socket-5: 'Files and directories list: 
+	server
+	'
+Sun Oct  2 22:44:38 2022| SERVER<<socket-5: 'lol'
+Sun Oct  2 22:44:38 2022| SERVER>>socket-5: 'There are no files or directories that fit to your filter
+'
+Sun Oct  2 22:44:51 2022| SERVER<<socket-5: ''
+Sun Oct  2 22:44:51 2022| SERVER>>socket-5: 'There are no files or directories that fit to your filter
+'
+Sun Oct  2 22:45:24 2022| SERVER<<socket-5: '*'
+Sun Oct  2 22:45:24 2022| SERVER>>socket-5: 'Files and directories list: 
+	1
+	1.cpp
+	2.txt
+	a.out
+	client
+	client.cpp
+	filesystem
+	server
+	server.cpp
+	server_log.txt
+	'
+Sun Oct  2 22:45:25 2022| SERVER<<socket-5: '1'
+Sun Oct  2 22:45:25 2022| SERVER>>socket-5: 'Files and directories list: 
+	1
+	'
+Sun Oct  2 22:45:28 2022| SERVER<<socket-5: 'Who'
+Sun Oct  2 22:45:28 2022| SERVER>>socket-5: 'Author of the program: Oleksandr Diakon, variant number - 6, File list
+'
+Sun Oct  2 22:45:29 2022| SERVER<<socket-5: 'lol'
+Sun Oct  2 22:45:29 2022| SERVER>>socket-5: 'There are no files or directories that fit to your filter
+'
+Sun Oct  2 22:45:31 2022| SERVER<<socket-5: ''
+Sun Oct  2 22:45:31 2022| SERVER>>socket-5: 'There are no files or directories that fit to your filter
+'

@@ -1,27 +1,33 @@
-// Server side C/C++ program to demonstrate Socket
-// programming
+
+
+
 #include <netinet/in.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <string>
+#include <fstream>
 #include <sys/socket.h>
 #include <unistd.h>
 #include <glob.h>
-#define PORT 8080
-
+#include <ctime>
 #include <iostream>
+
+
+#define PORT 1031
+
 using namespace std;
 using std::string;
 using std::cout;
 
 string get_files(char patterns[100]){
     glob_t globbuf;
-    string files = "Files and directories list: \n";
+    string files = "Files and directories list: \n\t";
     glob(patterns, 0, NULL, &globbuf);
 	if (globbuf.gl_pathc>0){
 		for (int i = 0; i < globbuf.gl_pathc; i ++){
 			files += globbuf.gl_pathv[i];
-			files += "\n";
+			files += "\n\t";
 		}
 	}
 	else{
@@ -32,8 +38,29 @@ string get_files(char patterns[100]){
 }
 
 
+
+void make_log(std::ofstream& logfile, const char *msg, int s, int type ){
+	char* st;
+	if (type){
+		st = "->";
+	}
+	else{
+		st = "<-";
+	}
+	time_t now = time(0);
+
+    // convert now to string form
+  	char* date_time = strtok(ctime(&now), "\n");
+    logfile << date_time << "| SERVER"<< st << "socket-" << s << ": " << msg  << std::endl;
+	
+}
+
+
 int main(int argc, char const* argv[])
 {
+    std::ofstream logfile;
+	logfile.open("server_log.txt", std::ios_base::app);
+
 	int server_fd, valread;
 	struct sockaddr_in address;
 	int opt = 1;
@@ -71,9 +98,10 @@ int main(int argc, char const* argv[])
 	}
 
 
-	
+	string user_msg;
 	int is_work = 1;
 	while (1){
+		
 		int new_socket;
 		if ((new_socket
 		= accept(server_fd, (struct sockaddr*)&address,
@@ -83,9 +111,14 @@ int main(int argc, char const* argv[])
 			perror("error in accept");
 			exit(EXIT_FAILURE);
 		}
-		string files;
+		int is_work = 1;
+		string msg;
+		printf("user connected");
 		while (is_work) {
 			valread = read(new_socket, buffer, 255);
+			// write log to file
+			make_log(logfile, buffer, new_socket, 0);
+			
 			if (valread == -1)
 			{
 				perror("Error in read");
@@ -96,10 +129,26 @@ int main(int argc, char const* argv[])
 				perror("user disconected");
 				is_work = 0;
 			}
-			files = get_files(buffer);
+			user_msg = buffer;
+			if (user_msg == "Who"){
+				msg = "Author of the program: Oleksandr Diakon, variant number - 6, File list";
+
+			}
+			else {
+				msg = get_files(buffer);
+			}
 			printf("Receaved msg: %s\n", buffer);
-			send(new_socket, files.c_str(), files.size(), 0);
+			cout<<msg.c_str()<<endl;
+			send(new_socket, msg.c_str(), msg.size(), 0);
+			// write log to file
+			make_log(logfile, msg.c_str(), new_socket, 1);
+
 			printf("Sent file list\n");
+
+			// Clear buffer
+			for (int i = 0; i < 255; i++){
+				buffer[i] = 0;
+			}
     	}
 		// close client socket
 		close(new_socket);
@@ -108,5 +157,8 @@ int main(int argc, char const* argv[])
 	}
     // closing the listening socket
     shutdown(server_fd, SHUT_RDWR);
+
+	logfile.close();
+
 	return 0;
 }
