@@ -13,11 +13,11 @@
 #include <ctime>
 #include <iostream>
 #include <filesystem> 
+#include <unistd.h>
 
 
 #define PORT 1031
 
-using namespace std;
 using std::string;
 namespace fs = std::filesystem;
 
@@ -70,8 +70,9 @@ void make_log(std::ofstream& logfile, const char *msg, int s, int type ){
 
 void sendall(int client, char *buffer, const char *message, int messageLength, int bufferSize = 255)
 {
-	send(client, to_string(messageLength).c_str(), sizeof(messageLength), 0);
+	send(client, std::to_string(messageLength).c_str(), sizeof(messageLength), 0);
 	int sendPosition = 0;
+	usleep(10);
 	while (messageLength) {
 		int chunkSize = messageLength > bufferSize ? bufferSize : messageLength;
 		memcpy(buffer, message + sendPosition, chunkSize);
