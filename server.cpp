@@ -12,32 +12,47 @@
 #include <glob.h>
 #include <ctime>
 #include <iostream>
+#include <filesystem> 
 
 
 #define PORT 1031
 
 using namespace std;
 using std::string;
-using std::cout;
+namespace fs = std::filesystem;
+
 
 string get_files(char patterns[100]){
     glob_t globbuf;
-    string files = "Files and directories list: \n\t";
+    string files = "Files and directories list: ";
     glob(patterns, 0, NULL, &globbuf);
 	if (globbuf.gl_pathc>0){
+		std::error_code ec;
+
 		for (int i = 0; i < globbuf.gl_pathc; i ++){
-			files += globbuf.gl_pathv[i];
 			files += "\n\t";
+			files += globbuf.gl_pathv[i];
+			// Check is file directory
+			const fs::path path(globbuf.gl_pathv[i]);
+			if (fs::is_directory(path, ec)){
+				files += "/";
+			}
+			
 		}
 	}
 	else{
-		files = "There are no files or directories that fit to your filter\n";
+		files = "There are no files or directories that fit to your filter";
 	}
     return files;
     
 }
 
-
+char* get_time(){
+	time_t now = time(0);
+    // convert now to string form
+  	char* date_time = strtok(ctime(&now), "\n");
+	return date_time;
+}
 
 void make_log(std::ofstream& logfile, const char *msg, int s, int type ){
 	char* st;
@@ -47,11 +62,8 @@ void make_log(std::ofstream& logfile, const char *msg, int s, int type ){
 	else{
 		st = "<-";
 	}
-	time_t now = time(0);
-
-    // convert now to string form
-  	char* date_time = strtok(ctime(&now), "\n");
-    logfile << date_time << "| SERVER"<< st << "socket-" << s << ": " << msg  << std::endl;
+	char* date_time = get_time();
+    logfile << date_time << "| SERVER"<< st << "socket-" << s << ": '" << msg  << "'" << std::endl;
 	
 }
 
@@ -74,7 +86,7 @@ int main(int argc, char const* argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	// Forcefully attaching socket to the port 8080
+	// Forcefully attaching socket to the port 
 	if (setsockopt(server_fd, SOL_SOCKET,
 				SO_REUSEADDR | SO_REUSEPORT, &opt,
 				sizeof(opt))) {
@@ -85,7 +97,7 @@ int main(int argc, char const* argv[])
 	address.sin_addr.s_addr = INADDR_ANY;
 	address.sin_port = htons(PORT);
 
-	// Forcefully attaching socket to the port 8080
+	// 
 	if (bind(server_fd, (struct sockaddr*)&address,
 			sizeof(address))
 		< 0) {
@@ -101,7 +113,7 @@ int main(int argc, char const* argv[])
 	string user_msg;
 	int is_work = 1;
 	while (1){
-		
+		// connect new socket(user)
 		int new_socket;
 		if ((new_socket
 		= accept(server_fd, (struct sockaddr*)&address,
@@ -113,8 +125,11 @@ int main(int argc, char const* argv[])
 		}
 		int is_work = 1;
 		string msg;
-		printf("user connected");
+		printf("user connected\n");
+		logfile<<get_time()<<"| USER CONNECTED\n";
 		while (is_work) {
+
+			// read client request
 			valread = read(new_socket, buffer, 255);
 			// write log to file
 			make_log(logfile, buffer, new_socket, 0);
@@ -126,19 +141,20 @@ int main(int argc, char const* argv[])
 			}
 			if (valread == 0)
 			{
-				perror("user disconected");
+				perror("user disconnected");
+				logfile<<get_time()<<"| USER DISCONNECTED\n";
 				is_work = 0;
 			}
 			user_msg = buffer;
+			// Check different cases
 			if (user_msg == "Who"){
 				msg = "Author of the program: Oleksandr Diakon, variant number - 6, File list";
-
 			}
 			else {
 				msg = get_files(buffer);
 			}
 			printf("Receaved msg: %s\n", buffer);
-			cout<<msg.c_str()<<endl;
+			// send msg to the user
 			send(new_socket, msg.c_str(), msg.size(), 0);
 			// write log to file
 			make_log(logfile, msg.c_str(), new_socket, 1);

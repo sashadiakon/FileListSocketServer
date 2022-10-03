@@ -10,6 +10,14 @@
 #define PORT 1031
 
 
+char* get_time(){
+	time_t now = time(0);
+    // convert now to string form
+  	char* date_time = strtok(ctime(&now), "\n");
+	return date_time;
+}
+
+
 void make_log(std::ofstream& logfile, const char *msg, int type ){
 	char* st;
 	if (type){
@@ -21,8 +29,8 @@ void make_log(std::ofstream& logfile, const char *msg, int type ){
 	time_t now = time(0);
 
     // convert now to string form
-  	char* date_time = strtok(ctime(&now), "\n");
-    logfile << date_time << "| Client"<< st << "Server: " << msg  << std::endl;
+  	char* date_time = get_time();
+    logfile << date_time << "| Client"<< st << "Server: '" << msg  << "'" << std::endl;
 	
 }
 
@@ -62,6 +70,8 @@ int main(int argc, char const* argv[])
     char inp[200];
 	int is_work = 1;
 	std::string a;
+	logfile<<get_time()<<"| USER CONNECTED\n";
+
 	printf("Example of input by path that shows everything inside home folder: /home/*\n");
 	printf("another example that shows only cpp files in Desktop: /home/sady/Desktop/*.cpp\n\n");
     while(is_work){
@@ -82,6 +92,7 @@ int main(int argc, char const* argv[])
 			buffer[i] = 0;
 		}
     }
+
     // closing the connected socket
     close(client_fd);
 	printf("You disconected from the server");
