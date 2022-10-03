@@ -71,23 +71,37 @@ int main(int argc, char const* argv[])
 	int is_work = 1;
 	std::string a;
 	logfile<<get_time()<<"| USER CONNECTED\n";
-
+	int msg_size;
+	std::string msg;
 	printf("Example of input by path that shows everything inside home folder: /home/*\n");
 	printf("another example that shows only cpp files in Desktop: /home/sady/Desktop/*.cpp\n\n");
     while(is_work){
-		printf("Input path and filter:  ");
-        std::cin >> inp;
 		a = "";
+		int sent = 0;
+		printf("Input path and filter:  ");
+		msg = "";
+		std::cin >> inp;
 		a+=inp;
         send(sock, inp, strlen(inp), 0);
 		// write log to file
 		make_log(logfile, inp, 1);
+		valread = read(sock, buffer, 255);
+		msg_size = atoi(buffer);
+		while (sent<msg_size){
+			valread = read(sock, buffer, 255);
+			logfile<<buffer<<"\n\n";
+			sent += sizeof(buffer);
+			msg += buffer;
+			for (int i = 0; i < 255; i++){
+				buffer[i] = 0;
+			}
+		}
+		msg += "\n";
+		printf(msg.c_str());
 
-        valread = read(sock, buffer, 255);
 		// write log to file
-		make_log(logfile, buffer, 0);
+		make_log(logfile, msg.c_str(), 0);
 
-        printf("%s\n", buffer); 
 		for (int i = 0; i < 255; i++){
 			buffer[i] = 0;
 		}
@@ -95,6 +109,5 @@ int main(int argc, char const* argv[])
 
     // closing the connected socket
     close(client_fd);
-	printf("You disconected from the server");
 	return 0;
 }

@@ -47,6 +47,7 @@ string get_files(char patterns[100]){
     
 }
 
+
 char* get_time(){
 	time_t now = time(0);
     // convert now to string form
@@ -67,6 +68,22 @@ void make_log(std::ofstream& logfile, const char *msg, int s, int type ){
 	
 }
 
+void sendall(int client, char *buffer, const char *message, int messageLength, int bufferSize = 255)
+{
+	send(client, to_string(messageLength).c_str(), sizeof(messageLength), 0);
+	int sendPosition = 0;
+	while (messageLength) {
+		int chunkSize = messageLength > bufferSize ? bufferSize : messageLength;
+		memcpy(buffer, message + sendPosition, chunkSize);
+
+		chunkSize = send(client, buffer, chunkSize, 0);
+		messageLength -= chunkSize;
+		sendPosition += chunkSize;
+	}
+
+} 
+
+
 
 int main(int argc, char const* argv[])
 {
@@ -78,15 +95,13 @@ int main(int argc, char const* argv[])
 	int opt = 1;
 	int addrlen = sizeof(address);
 	char buffer[255] = { 0 };
-	char* hello = "Hello from server";
 
-	// Creating socket file descriptor
+	// Creating a socket 
 	if ((server_fd = socket(AF_INET, SOCK_STREAM, 0)) < 0) {
 		perror("socket failed");
 		exit(EXIT_FAILURE);
 	}
 
-	// Forcefully attaching socket to the port 
 	if (setsockopt(server_fd, SOL_SOCKET,
 				SO_REUSEADDR | SO_REUSEPORT, &opt,
 				sizeof(opt))) {
@@ -128,9 +143,12 @@ int main(int argc, char const* argv[])
 		printf("user connected\n");
 		logfile<<get_time()<<"| USER CONNECTED\n";
 		while (is_work) {
-
+			for (int i = 0; i < 255; i++){
+				buffer[i] = 0;
+			}
 			// read client request
 			valread = read(new_socket, buffer, 255);
+			printf("Receaved msg: %s\n", buffer);
 			// write log to file
 			make_log(logfile, buffer, new_socket, 0);
 			
@@ -144,6 +162,7 @@ int main(int argc, char const* argv[])
 				perror("user disconnected");
 				logfile<<get_time()<<"| USER DISCONNECTED\n";
 				is_work = 0;
+				continue;
 			}
 			user_msg = buffer;
 			// Check different cases
@@ -153,22 +172,18 @@ int main(int argc, char const* argv[])
 			else {
 				msg = get_files(buffer);
 			}
-			printf("Receaved msg: %s\n", buffer);
 			// send msg to the user
-			send(new_socket, msg.c_str(), msg.size(), 0);
+			sendall(new_socket, buffer, msg.c_str(), msg.size());
 			// write log to file
 			make_log(logfile, msg.c_str(), new_socket, 1);
 
 			printf("Sent file list\n");
 
 			// Clear buffer
-			for (int i = 0; i < 255; i++){
-				buffer[i] = 0;
-			}
+			
     	}
 		// close client socket
 		close(new_socket);
-		printf("Server closed connection with client");
 
 	}
     // closing the listening socket
@@ -178,3 +193,4 @@ int main(int argc, char const* argv[])
 
 	return 0;
 }
+
