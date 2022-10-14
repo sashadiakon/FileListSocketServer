@@ -1,0 +1,251 @@
+Tue Oct  4 11:58:42 2022| USER CONNECTED
+Tue Oct  4 11:58:46 2022| Client->Server: '*'
+Files and directories list: 
+	1
+	1.cpp
+	2.txt
+	a.out
+	client
+	client.cpp
+	client_log.txt
+	filesystem/
+	server
+	server.cpp
+	server_log.txt
+	Звіт, Дякон, км лаб1.odt
+	Звіт, Дякон, км лаб1.pdf
+
+Tue Oct  4 11:58:46 2022| Client<-Server: 'Files and directories list: 
+	1
+	1.cpp
+	2.txt
+	a.out
+	client
+	client.cpp
+	client_log.txt
+	filesystem/
+	server
+	server.cpp
+	server_log.txt
+	Звіт, Дякон, км лаб1.odt
+	Звіт, Дякон, км лаб1.pdf
+'
+Tue Oct  4 11:58:49 2022| Client->Server: 'server*'
+Files and directories list: 
+	server
+	server.cpp
+	server_log.txt
+
+Tue Oct  4 11:58:49 2022| Client<-Server: 'Files and directories list: 
+	server
+	server.cpp
+	server_log.txt
+'
+Tue Oct  4 11:58:52 2022| Client->Server: '*.*'
+Files and directories list: 
+	1.cpp
+	2.txt
+	a.out
+	client.cpp
+	client_log.txt
+	server.cpp
+	server_log.txt
+	Звіт, Дякон, км лаб1.odt
+	Звіт, Дякон, км лаб1.pdf
+
+Tue Oct  4 11:58:52 2022| Client<-Server: 'Files and directories list: 
+	1.cpp
+	2.txt
+	a.out
+	client.cpp
+	client_log.txt
+	server.cpp
+	server_log.txt
+	Звіт, Дякон, км лаб1.odt
+	Звіт, Дякон, км лаб1.pdf
+'
+Tue Oct  4 11:58:55 2022| Client->Server: '*.txt'
+Files and directories list: 
+	2.txt
+	client_log.txt
+	server_log.txt
+
+Tue Oct  4 11:58:55 2022| Client<-Server: 'Files and directories list: 
+	2.txt
+	client_log.txt
+	server_log.txt
+'
+Tue Oct  4 11:58:56 2022| Client->Server: 'Who'
+Author of the program: Oleksandr Diakon, variant number - 6, File list
+
+Tue Oct  4 11:58:56 2022| Client<-Server: 'Author of the program: Oleksandr Diakon, variant number - 6, File list
+'
+Tue Oct  4 11:58:58 2022| USER CONNECTED
+Tue Oct  4 11:58:59 2022| Client->Server: 'Who'
+Author of the program: Oleksandr Diakon, variant number - 6, File list
+
+Tue Oct  4 11:58:59 2022| Client<-Server: 'Author of the program: Oleksandr Diakon, variant number - 6, File list
+'
+Tue Oct  4 11:59:09 2022| Client->Server: '/home/sady/Desktop/*'
+Files and directories list: 
+	/home/sady/Desktop/1.txt
+	/home/sady/Desktop/FullTexts/
+	/home/sady/Desktop/Grokking-Deep-Learning-master/
+	/home/sady/Desktop/Refactored_Py_DS_ML_Bootcamp-master/
+	/home/sady/Desktop/Untitled.ipynb
+	/home/sady/Desktop/VM/
+	/
+
+home/sady/Desktop/[SW.BAND] [Михаил Русаков] Написание лайфхаков на Python (2021)/
+	/home/sady/Desktop/books/
+	/home/sady/Desktop/c# study/
+	/home/sady/Desktop/c++/
+	/home/sady/Desktop/kaggle/
+	/home/sady/Desktop/kagle_lap
+
+top.zip
+	/home/sady/Desktop/knu/
+	/home/sady/Desktop/newspaper.txt
+	/home/sady/Desktop/programs/
+	/home/sady/Desktop/study nn/
+	/home/sady/Desktop/test.py
+	/home/sady/Desktop/для универа/
+	/home/sady/Desktop/лекції/
+
+Tue Oct  4 11:59:09 2022| Client<-Server: 'Files and directories list: 
+	/home/sady/Desktop/1.txt
+	/home/sady/Desktop/FullTexts/
+	/home/sady/Desktop/Grokking-Deep-Learning-master/
+	/home/sady/Desktop/Refactored_Py_DS_ML_Bootcamp-master/
+	/home/sady/Desktop/Untitled.ipynb
+	/home/sady/Desktop/VM/
+	/home/sady/Desktop/[SW.BAND] [Михаил Русаков] Написание лайфхаков на Python (2021)/
+	/home/sady/Desktop/books/
+	/home/sady/Desktop/c# study/
+	/home/sady/Desktop/c++/
+	/home/sady/Desktop/kaggle/
+	/home/sady/Desktop/kagle_laptop.zip
+	/home/sady/Desktop/knu/
+	/home/sady/Desktop/newspaper.txt
+	/home/sady/Desktop/programs/
+	/home/sady/Desktop/study nn/
+	/home/sady/Desktop/test.py
+	/home/sady/Desktop/для универа/
+	/home/sady/Desktop/лекції/
+'
+Tue Oct  4 14:11:41 2022| USER CONNECTED
+Tue Oct  4 14:11:47 2022| Client->Server: '*'
+Files and directories list: 
+	1
+	1.cpp
+	2.txt
+	a.out
+	client
+	client.cpp
+	client_log.txt
+	filesystem/
+	server
+	server.cpp
+	server_log.txt
+	Звіт, Дякон, км лаб1.odt
+	Звіт, Дякон, км лаб1.pdf
+
+Tue Oct  4 14:11:47 2022| Client<-Server: 'Files and directories list: 
+	1
+	1.cpp
+	2.txt
+	a.out
+	client
+	client.cpp
+	client_log.txt
+	filesystem/
+	server
+	server.cpp
+	server_log.txt
+	Звіт, Дякон, км лаб1.odt
+	Звіт, Дякон, км лаб1.pdf
+'
+Tue Oct  4 14:12:02 2022| Client->Server: '/home/sady/Desktop/*'
+Files and directories list: 
+	/home/sady/Desktop/1.txt
+	/home/sady/Desktop/FullTexts/
+	/home/sady/Desktop/Grokking-Deep-Learning-master/
+	/home/sady/Desktop/Refactored_Py_DS_ML_Bootcamp-master/
+	/home/sady/Desktop/Untitled.ipynb
+	/home/sady/Desktop/VM/
+	/
+
+home/sady/Desktop/[SW.BAND] [Михаил Русаков] Написание лайфхаков на Python (2021)/
+	/home/sady/Desktop/books/
+	/home/sady/Desktop/c# study/
+	/home/sady/Desktop/c++/
+	/home/sady/Desktop/kaggle/
+	/home/sady/Desktop/kagle_lap
+
+top.zip
+	/home/sady/Desktop/knu/
+	/home/sady/Desktop/newspaper.txt
+	/home/sady/Desktop/programs/
+	/home/sady/Desktop/study nn/
+	/home/sady/Desktop/test.py
+	/home/sady/Desktop/для универа/
+	/home/sady/Desktop/лекції/
+
+Tue Oct  4 14:12:02 2022| Client<-Server: 'Files and directories list: 
+	/home/sady/Desktop/1.txt
+	/home/sady/Desktop/FullTexts/
+	/home/sady/Desktop/Grokking-Deep-Learning-master/
+	/home/sady/Desktop/Refactored_Py_DS_ML_Bootcamp-master/
+	/home/sady/Desktop/Untitled.ipynb
+	/home/sady/Desktop/VM/
+	/home/sady/Desktop/[SW.BAND] [Михаил Русаков] Написание лайфхаков на Python (2021)/
+	/home/sady/Desktop/books/
+	/home/sady/Desktop/c# study/
+	/home/sady/Desktop/c++/
+	/home/sady/Desktop/kaggle/
+	/home/sady/Desktop/kagle_laptop.zip
+	/home/sady/Desktop/knu/
+	/home/sady/Desktop/newspaper.txt
+	/home/sady/Desktop/programs/
+	/home/sady/Desktop/study nn/
+	/home/sady/Desktop/test.py
+	/home/sady/Desktop/для универа/
+	/home/sady/Desktop/лекції/
+'
+Tue Oct  4 14:12:06 2022| Client->Server: '*.txt'
+Files and directories list: 
+	2.txt
+	client_log.txt
+	server_log.txt
+
+Tue Oct  4 14:12:06 2022| Client<-Server: 'Files and directories list: 
+	2.txt
+	client_log.txt
+	server_log.txt
+'
+Tue Oct  4 14:12:08 2022| Client->Server: 'Who'
+Author of the program: Oleksandr Diakon, variant number - 6, File list
+
+Tue Oct  4 14:12:08 2022| Client<-Server: 'Author of the program: Oleksandr Diakon, variant number - 6, File list
+'
+Tue Oct  4 14:12:36 2022| Client->Server: 'server*'
+Files and directories list: 
+	server
+	server.cpp
+	server_log.txt
+
+Tue Oct  4 14:12:36 2022| Client<-Server: 'Files and directories list: 
+	server
+	server.cpp
+	server_log.txt
+'
+Tue Oct  4 14:12:50 2022| USER CONNECTED
+Tue Oct  4 14:12:53 2022| Client->Server: '1*'
+Files and directories list: 
+	1
+	1.cpp
+
+Tue Oct  4 14:12:53 2022| Client<-Server: 'Files and directories list: 
+	1
+	1.cpp
+'
